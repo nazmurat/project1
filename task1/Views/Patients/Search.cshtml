@@ -1,0 +1,31 @@
+@model task1.Models.Pages.SearchViewModel
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "_Layout"; // Подставьте свой макет страницы
+}
+
+<h1>Search Page</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="searchString">Search String:</label>
+        <input type="text" name="SearchString" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model.SearchResults != null && Model.SearchResults.Any())
+{
+<h2>Search Results</h2>
+<ul>
+    @foreach (var result in Model.SearchResults)
+        {
+    <li>@result.Title - @result.Description</li>
+        }
+</ul>
+}
+else if (!string.IsNullOrEmpty(Model.SearchString))
+{
+<p>No results found for "@Model.SearchString".</p>
+}

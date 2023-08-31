@@ -1,0 +1,81 @@
+@model IEnumerable<card.Models.Patient>
+
+@{
+    ViewData["Title"] = "Patients";
+    Layout = "_Layout";
+}
+
+<h1>Patients</h1>
+<form asp-controller="Patient" asp-action="Search" method="post">
+    <input type="text" name="searchString" placeholder="Search by Name or IIN">
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>FullName</th>
+            <th>IIN</th>
+            <th>Address</th>
+            <!-- Остальные заголовки -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.FullName</td>
+                <td>@patient.IIN</td>
+                <td>@patient.Address</td>
+                <!-- Остальные поля -->
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a class="butt" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IIN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IIN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a class="butt" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="butt" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="butt" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
